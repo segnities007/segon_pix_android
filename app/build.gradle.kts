@@ -80,5 +80,4 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.retrofit2.converter.gson)
 
-
 }
