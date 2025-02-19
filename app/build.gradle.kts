@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -37,10 +39,14 @@ android {
     buildFeatures {
         compose = true
     }
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
 
+    //default
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -56,4 +62,23 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    //add by seg
+
+    //about navigation
+    implementation(libs.androidx.navigation.compose)
+
+    //about hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+
+    //about coil3
+    implementation(libs.coil.compose)
+
+    //about retrofit
+    implementation(libs.retrofit)
+    implementation(libs.gson)
+    implementation(libs.retrofit2.converter.gson)
+
+
 }
