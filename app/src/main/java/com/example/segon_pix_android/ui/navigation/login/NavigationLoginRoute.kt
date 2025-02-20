@@ -6,6 +6,5 @@ import kotlinx.serialization.Serializable
 sealed class NavigationLoginRoute(
     val label: String,
 ) {
-    @Serializable
-    data object Login : NavigationLoginRoute(label = "Login")
+    @Serializable data object SignUpIn : NavigationLoginRoute(label = "SignUpIn")
 }
