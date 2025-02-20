@@ -1,7 +1,10 @@
 package com.example.segon_pix_android.ui.screen.splash
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun Splash() {
+fun Splash(
+) {
+    Text("s")
 }
