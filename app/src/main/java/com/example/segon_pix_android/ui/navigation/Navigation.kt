@@ -12,22 +12,14 @@ import com.example.segon_pix_android.ui.screen.splash.Splash
 
 @Composable
 fun Navigation() {
-    val navController = rememberNavController()
+    val navTopController = rememberNavController()
 
     NavHost(
-        navController = navController,
+        navController = navTopController,
         startDestination = NavigationRoute.Splash,
     ) {
-        composable<NavigationRoute.Splash> { Splash() }
-        composable<NavigationRoute.Login> {
-            Login{
-                NavigationLogin()
-            }
-        }
-        composable<NavigationRoute.Home> {
-            Hub {
-                NavigationHub()
-            }
-        }
+        composable<NavigationRoute.Splash> { Splash(navTopController) }
+        composable<NavigationRoute.Login> { NavigationLogin(navTopController) }
+        composable<NavigationRoute.Hub> { NavigationHub(navTopController) }
     }
 }
