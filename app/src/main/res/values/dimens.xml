@@ -8,6 +8,7 @@
     <dimen name="larger_padding">32.dp</dimen>
     <dimen name="largest_padding">64.dp</dimen>
     <dimen name="normal_icon_size">32.dp</dimen>
+    <dimen name="nl_icon_size">40.dp</dimen>
     <dimen name="large_icon_size">48.dp</dimen>
     <dimen name="larger_icon_size">64.dp</dimen>
     <dimen name="largest_icon_size">128.dp</dimen>
