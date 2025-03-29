@@ -20,24 +20,23 @@ import com.example.segon_pix_android.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBarWithMenu(
-    centerContent: @Composable () -> Unit,
-){
+fun TopBarWithMenu(centerContent: @Composable () -> Unit) {
     val commonPadding: Dp = dimensionResource(R.dimen.normal_padding)
 
     val leftContent: @Composable () -> Unit = {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start,
-        ){
+        ) {
             Spacer(Modifier.padding(commonPadding))
             Icon(
-                modifier = Modifier
-                    .size(dimensionResource(R.dimen.nl_icon_size))
-                    .clip(RoundedCornerShape(dimensionResource(R.dimen.small_padding)))
-                    .clickable {
-                    //TODO
-                },
+                modifier =
+                    Modifier
+                        .size(dimensionResource(R.dimen.nl_icon_size))
+                        .clip(RoundedCornerShape(dimensionResource(R.dimen.small_padding)))
+                        .clickable {
+                            // TODO
+                        },
                 painter = painterResource(R.drawable.baseline_menu_24),
                 contentDescription = null,
             )

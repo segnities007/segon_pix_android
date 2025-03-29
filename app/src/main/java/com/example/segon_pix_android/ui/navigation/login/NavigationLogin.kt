@@ -10,12 +10,10 @@ import com.example.segon_pix_android.ui.screen.login.Login
 import com.example.segon_pix_android.ui.screen.login.SignUpIn
 
 @Composable
-fun NavigationLogin(
-    navTopController: NavHostController,
-) {
+fun NavigationLogin(navTopController: NavHostController) {
     val navLoginController = rememberNavController()
 
-    Login{
+    Login {
         NavHost(
             navController = navLoginController,
             startDestination = NavigationLoginRoute.SignUpIn,
@@ -27,7 +25,7 @@ fun NavigationLogin(
 
 @Composable
 @Preview
-private fun NavigationLoginPreview(){
+private fun NavigationLoginPreview() {
     val navController = rememberNavController()
     NavigationLogin(navController)
 }

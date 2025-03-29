@@ -1,9 +1,7 @@
 package com.example.segon_pix_android.ui.screen.hub
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -13,7 +11,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.segon_pix_android.ui.component.bar.bottom_bar.BottomNavigationBar
 import com.example.segon_pix_android.ui.component.bar.bottom_bar.BottomNavigationBarAction
 import com.example.segon_pix_android.ui.component.bar.bottom_bar.HubNavigationItems
-import com.example.segon_pix_android.ui.component.bar.top_bar.TopBar
 import com.example.segon_pix_android.ui.component.bar.top_bar.TopBarWithMenu
 
 @Composable
@@ -21,13 +18,12 @@ fun Hub(
     selectedIndex: Int,
     bottomNavigationBarAction: BottomNavigationBarAction,
     content: @Composable () -> Unit,
-){
+) {
     val drawerContent: @Composable () -> Unit = {
-
     }
 
     ModalNavigationDrawer(
-        drawerContent = drawerContent
+        drawerContent = drawerContent,
     ) {
         HubUi(
             selectedIndex = selectedIndex,
@@ -42,8 +38,7 @@ private fun HubUi(
     selectedIndex: Int,
     bottomNavigationBarAction: BottomNavigationBarAction,
     content: @Composable () -> Unit,
-    ){
-
+) {
     val topBar: @Composable () -> Unit = {
         TopBarWithMenu {
             Text("Hub")
@@ -61,8 +56,8 @@ private fun HubUi(
     Scaffold(
         topBar = topBar,
         bottomBar = bottomBar,
-    ){innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)){
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
             content()
         }
     }
@@ -70,10 +65,10 @@ private fun HubUi(
 
 @Composable
 @Preview
-private fun HubPreview(){
+private fun HubPreview() {
     Hub(
         selectedIndex = 0,
-        bottomNavigationBarAction = BottomNavigationBarAction {  },
-        content = {}
+        bottomNavigationBarAction = BottomNavigationBarAction { },
+        content = {},
     )
 }
