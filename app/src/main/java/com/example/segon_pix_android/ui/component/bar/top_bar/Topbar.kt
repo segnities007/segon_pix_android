@@ -18,25 +18,26 @@ fun TopBar(
     leftContent: @Composable () -> Unit = {},
     rightContent: @Composable () -> Unit = {},
     centerContent: @Composable () -> Unit,
-){
+) {
     CenterAlignedTopAppBar(
         title = centerContent,
         modifier = modifier,
         navigationIcon = leftContent,
         actions = { rightContent() },
         scrollBehavior = scrollBehavior,
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            titleContentColor = MaterialTheme.colorScheme.primary,
-        )
+        colors =
+            TopAppBarDefaults.centerAlignedTopAppBarColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                titleContentColor = MaterialTheme.colorScheme.primary,
+            ),
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview
-private fun TopBarPreview(){
-    TopBar{
+private fun TopBarPreview() {
+    TopBar {
         Text("a")
     }
 }

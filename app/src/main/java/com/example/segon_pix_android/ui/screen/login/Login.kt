@@ -12,9 +12,7 @@ import com.example.segon_pix_android.ui.component.bar.top_bar.TopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Login(
-    content: @Composable () -> Unit,
-) {
+fun Login(content: @Composable () -> Unit) {
     val topBar: @Composable () -> Unit = {
         TopBar {
             Text("Login")
@@ -22,9 +20,9 @@ fun Login(
     }
 
     Scaffold(
-        topBar = topBar
-    ){ innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)){
+        topBar = topBar,
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
             content()
         }
     }
@@ -32,6 +30,6 @@ fun Login(
 
 @Composable
 @Preview
-private fun LoginPreview(){
-    Login{}
+private fun LoginPreview() {
+    Login {}
 }

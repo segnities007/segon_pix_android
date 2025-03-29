@@ -1,6 +1,5 @@
 package com.example.segon_pix_android.ui.component.bar.bottom_bar
 
-import android.util.Log
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -14,21 +13,26 @@ fun BottomNavigationBar(
     selectedItemIndex: Int,
     navigationItems: NavigationItems,
     onClick: (Int) -> Unit,
-){
+) {
     NavigationBar {
-        navigationItems.labels.forEachIndexed{ index, item ->
+        navigationItems.labels.forEachIndexed { index, item ->
             NavigationBarItem(
                 selected = index == selectedItemIndex,
                 onClick = { onClick(index) },
-                label = {Text(item)},
-                icon = { Icon(
-                    painter = painterResource(
-                        if(index == selectedItemIndex)
-                             navigationItems.selectedIcons[index]
-                        else navigationItems.unSelectedIcons[index]
-                    ),
-                    contentDescription = null,
-                )},
+                label = { Text(item) },
+                icon = {
+                    Icon(
+                        painter =
+                            painterResource(
+                                if (index == selectedItemIndex) {
+                                    navigationItems.selectedIcons[index]
+                                } else {
+                                    navigationItems.unSelectedIcons[index]
+                                },
+                            ),
+                        contentDescription = null,
+                    )
+                },
             )
         }
     }
@@ -36,7 +40,7 @@ fun BottomNavigationBar(
 
 @Composable
 @Preview
-private fun BottomNavigationBarPreview(){
+private fun BottomNavigationBarPreview() {
     BottomNavigationBar(
         selectedItemIndex = 0,
         navigationItems = HubNavigationItems,

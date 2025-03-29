@@ -7,9 +7,7 @@ import androidx.navigation.NavHostController
 import com.example.segon_pix_android.ui.navigation.NavigationRoute
 
 @Composable
-fun Splash(
-    navTopController: NavHostController
-) {
+fun Splash(navTopController: NavHostController) {
     LaunchedEffect(Unit) {
         navTopController.navigate(NavigationRoute.Hub)
     }
