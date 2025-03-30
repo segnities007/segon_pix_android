@@ -1,13 +1,16 @@
 ---
 name: OOの実装
-about: 実装用テンプレートです
+about: Sub issue用テンプレートです。
 title: ''
-labels: ''
+labels: sub issue
 assignees: ''
 
 ---
 
 # About
+
+OO 用のSub issueです。
+以下のTaskを完了してください。
 
 ## Task
 
