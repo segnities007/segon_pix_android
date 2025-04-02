@@ -1,5 +1,6 @@
 package com.example.segon_pix_android.di
 
+import com.example.segon_pix_android.domain.ApiServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,4 +23,8 @@ object RetrofitModule {
             .baseUrl(baseURL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
+    @Provides
+    @Singleton
+    fun provideApiService(retrofit: Retrofit): ApiServices = retrofit.create(ApiServices::class.java)
 }
