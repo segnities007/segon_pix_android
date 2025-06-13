@@ -21,3 +21,13 @@ dependencyResolutionManagement {
 
 rootProject.name = "Segon_pix_android"
 include(":app")
+include(":presentation:component")
+include(":presentation:feature-auth")
+include(":presentation:feature-home")
+include(":domain:model")
+include(":domain:repository")
+include(":domain:usecase")
+include(":data:repoitory-impl")
+include(":data:remote")
+include(":data:local")
+include(":di")
