@@ -1,5 +1,6 @@
 package com.example.segon_pix_android.data.repoitory_impl
 
+import android.util.Log
 import com.auth0.jwt.JWT
 import com.auth0.jwt.interfaces.DecodedJWT
 import com.example.dto.VerifiedAddUserRequest
@@ -20,10 +21,12 @@ class AuthRepositoryImpl
         private val userApiService: UserApiService,
         private val tokenManager: AuthTokenManager,
     ) : AuthRepository {
+        override fun getToken(): String? = tokenManager.getToken()
+
         override suspend fun sendEmailVerificationCode(email: String): Boolean =
             try {
                 val response = authApiService.sendEmailVerificationCode(email)
-                response.message == "Success"
+                response.code() == 200
             } catch (e: Exception) {
                 e.printStackTrace()
                 false
@@ -85,9 +88,10 @@ class AuthRepositoryImpl
 
             val claims =
                 decodedJwt?.let { jwt ->
+                    Log.d("AuthRepositoryImpl", "getAuthenticatedUserClaims: ${jwt.claims} ${jwt.header}")
                     MyCustomClaims(
                         email = jwt.getClaim("email").asString(),
-                        userId = jwt.getClaim("user_id").asLong(),
+                        userId = jwt.getClaim("userid").asLong(),
                         issuer = jwt.issuer,
                         subject = jwt.subject,
                         audience = jwt.audience,

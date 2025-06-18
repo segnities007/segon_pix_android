@@ -8,6 +8,8 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 interface AuthRepository {
+    fun getToken(): String?
+
     suspend fun sendEmailVerificationCode(email: String): Boolean
 
     suspend fun verifyAndAddUser(

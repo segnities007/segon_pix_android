@@ -3,6 +3,7 @@ package com.example.segon_pix_android.data.remote.service
 import com.example.dto.AuthTokenResponse
 import com.example.dto.SendEmailCodeResponse
 import com.example.dto.VerifiedAddUserRequest
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -13,7 +14,7 @@ interface AuthApiService {
     @POST("sendEmailverifiedCode")
     suspend fun sendEmailVerificationCode(
         @Query("email") email: String,
-    ): SendEmailCodeResponse
+    ): Response<SendEmailCodeResponse>
 
     @POST("verifiedAddUser")
     suspend fun verifyAndAddUser(

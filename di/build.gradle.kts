@@ -35,8 +35,9 @@ android {
 }
 
 dependencies {
-
     implementation(project(":data:remote"))
+    implementation(project(":data:repoitory-impl"))
+    implementation(project(":domain:repository"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -45,11 +46,15 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
 
     // kotlinx.serialization
     implementation(libs.kotlinx.serialization.json)
+
+    // datetime
+    implementation(libs.kotlinx.datetime)
 
     // retrofit
     implementation(libs.retrofit)

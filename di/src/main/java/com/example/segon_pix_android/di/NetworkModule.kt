@@ -4,18 +4,26 @@ import com.example.segon_pix_android.data.remote.AuthTokenManager
 import com.example.segon_pix_android.data.remote.service.AuthApiService
 import com.example.segon_pix_android.data.remote.service.ImageApiService
 import com.example.segon_pix_android.data.remote.service.UserApiService
+import com.example.segon_pix_android.data.repoitory_impl.AuthRepositoryImpl
+import com.example.segon_pix_android.data.repoitory_impl.ImageRepositoryImpl
+import com.example.segon_pix_android.data.repoitory_impl.UserRepositoryImpl
+import com.example.segon_pix_android.domain.repository.AuthRepository
+import com.example.segon_pix_android.domain.repository.ImageRepository
+import com.example.segon_pix_android.domain.repository.UserRepository
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import jakarta.inject.Singleton
+import kotlinx.datetime.Instant
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -24,9 +32,13 @@ object NetworkModule {
     @Singleton
     fun provideJson(): Json =
         Json {
-            ignoreUnknownKeys = true
-            coerceInputValues = true
             prettyPrint = true
+            ignoreUnknownKeys = true
+            // Instant 型のシリアライザーを登録する SerializersModule を設定
+            serializersModule =
+                SerializersModule {
+                    contextual(Instant::class, Instant.serializer())
+                }
         }
 
     // 認証トークンをHTTPヘッダーに付与するインターセプターの提供
@@ -73,7 +85,7 @@ object NetworkModule {
         val contentType = "application/json".toMediaType()
         return Retrofit
             .Builder()
-            .baseUrl("http://localhost:8080/") // ★ あなたのバックエンドのURLに合わせて変更
+            .baseUrl("https://6df7-163-143-50-138.ngrok-free.app/") // ★ あなたのバックエンドのURLに合わせて変更
             .client(okHttpClient)
             .addConverterFactory(json.asConverterFactory(contentType))
             .build()
@@ -90,4 +102,26 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideImageApiService(retrofit: Retrofit): ImageApiService = retrofit.create(ImageApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideAuthRepositoryImpl(
+        authApiService: AuthApiService,
+        userApiService: UserApiService,
+        tokenManager: AuthTokenManager,
+    ): AuthRepository = AuthRepositoryImpl(authApiService, userApiService, tokenManager)
+
+    @Provides
+    @Singleton
+    fun provideUserRepositoryImpl(
+        userApiService: UserApiService,
+        tokenProvider: () -> String?,
+    ): UserRepository = UserRepositoryImpl(userApiService, tokenProvider)
+
+    @Provides
+    @Singleton
+    fun provideImageRepositoryImpl(
+        imageApiService: ImageApiService,
+        tokenManager: AuthTokenManager,
+    ): ImageRepository = ImageRepositoryImpl(imageApiService, tokenManager)
 }

@@ -2,10 +2,9 @@ package com.example.dto
 
 import com.example.segon_pix_android.domain.model.PostedImage
 import com.example.segon_pix_android.domain.model.User
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlin.time.ExperimentalTime
-import kotlin.time.Instant
 
 @Serializable
 data class UserResponse(
@@ -21,7 +20,6 @@ data class UserResponse(
     @SerialName("followers") val followers: List<User> = emptyList(),
 )
 
-@OptIn(ExperimentalTime::class)
 fun UserResponse.toDomainUser(): User =
     User(
         id = this.id,

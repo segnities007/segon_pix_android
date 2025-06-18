@@ -24,6 +24,7 @@
             <option value="$PROJECT_DIR$/presentation" />
             <option value="$PROJECT_DIR$/presentation/component" />
             <option value="$PROJECT_DIR$/presentation/feature-auth" />
+            <option value="$PROJECT_DIR$/presentation/feature-core" />
             <option value="$PROJECT_DIR$/presentation/feature-hub" />
             <option value="$PROJECT_DIR$/presentation/model" />
           </set>
