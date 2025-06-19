@@ -9,4 +9,7 @@ sealed interface FeatureRoute {
 
     @Serializable
     data object Hub : FeatureRoute
+
+    @Serializable
+    data object Splash : FeatureRoute
 }

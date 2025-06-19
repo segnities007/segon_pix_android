@@ -12,7 +12,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,10 +30,6 @@ fun Auth(coreNavHostController: NavHostController) {
             pageCount = { PAGE_COUNT },
             initialPage = INITIAL_PAGE,
         )
-
-    LaunchedEffect(Unit) {
-        authViewModel.onIntent(AuthIntent.Init(coreNavHostController))
-    }
 
     AuthUi(
         pagerState = pagerState,

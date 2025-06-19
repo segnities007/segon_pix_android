@@ -37,8 +37,4 @@ sealed interface AuthIntent {
     data class BackToStart(
         val pagerState: PagerState,
     ) : AuthIntent
-
-    data class Init(
-        val coreNavHostController: NavHostController,
-    ) : AuthIntent
 }

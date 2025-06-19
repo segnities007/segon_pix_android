@@ -30,20 +30,6 @@ class AuthViewModel
                 is AuthIntent.SignIn -> signIn(intent)
                 is AuthIntent.CreateAccount -> createAccount(intent)
                 is AuthIntent.BackToStart -> backToStart(intent)
-                is AuthIntent.Init -> init(intent)
-            }
-        }
-
-        private fun init(intent: AuthIntent.Init) {
-            viewModelScope.launch(Dispatchers.IO) {
-                val token = authRepository.getToken()
-                if (token == null) return@launch
-
-                val claims = authRepository.getAuthenticatedUserClaims(token)
-                if (claims == null) return@launch
-                viewModelScope.launch(Dispatchers.Main) {
-                    intent.coreNavHostController.navigate(FeatureRoute.Hub)
-                }
             }
         }
 

@@ -13,6 +13,9 @@ import com.example.segon_pix_android.domain.model.MyCustomClaims
 import com.example.segon_pix_android.domain.model.User
 import com.example.segon_pix_android.domain.repository.AuthRepository
 import jakarta.inject.Inject
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 class AuthRepositoryImpl
     @Inject
@@ -22,6 +25,12 @@ class AuthRepositoryImpl
         private val tokenManager: AuthTokenManager,
     ) : AuthRepository {
         override fun getToken(): String? = tokenManager.getToken()
+
+        override suspend fun isTokenVerified(): Boolean {
+            val token = tokenManager.getToken() ?: return false
+            val claims = getAuthenticatedUserClaims(token) ?: return false
+            return !isTokenExpired(claims)
+        }
 
         override suspend fun sendEmailVerificationCode(email: String): Boolean =
             try {
@@ -103,9 +112,7 @@ class AuthRepositoryImpl
                 }
 
             if (isTokenExpired(claims)) {
-                // メールアドレスとパスワードの保存がないため、自動再認証は行わない
-                // 上位層にトークン切れを通知するためにnullを返す
-                tokenManager.clearToken() // 無効なトークンをクリア
+                tokenManager.clearToken()
                 return null
             }
 
@@ -120,4 +127,14 @@ class AuthRepositoryImpl
                 e.printStackTrace()
                 null
             }
+
+        @OptIn(ExperimentalTime::class)
+        override suspend fun isTokenExpired(claims: MyCustomClaims?): Boolean {
+            var isExpired = false
+            claims?.expiration?.let { exp ->
+                isExpired = (Instant.fromEpochSeconds(exp) <= Clock.System.now())
+            }
+            if (isExpired) tokenManager.clearToken()
+            return isExpired
+        }
     }
