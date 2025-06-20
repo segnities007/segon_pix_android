@@ -18,13 +18,13 @@ interface UserApiService {
         @Query("userID") userId: Long,
     ): UserResponse
 
-    @GET("segon_pix_auth/get/user")
-    suspend fun getUserAuthenticated(
-        @Header("Authorization") token: String,
-        @Query("userID") userId: Long,
-        @Query("email") email: String,
-        @Query("password") password: String,
-    ): UserResponse
+//    @GET("segon_pix_auth/get/user")
+//    suspend fun getUserAuthenticated(
+//        @Header("Authorization") token: String,
+//        @Query("userID") userId: Long,
+//        @Query("email") email: String,
+//        @Query("password") password: String,
+//    ): UserResponse
 
     @DELETE("segon_pix_auth/delete/user")
     suspend fun deleteUser(

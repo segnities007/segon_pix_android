@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -24,7 +25,7 @@ import com.example.segon_pix_android.presentation.feature_hub.search.Search
 import com.example.segon_pix_android.presentation.model.HubRoute
 
 @Composable
-fun Hub() {
+fun Hub(coreNavController: NavHostController) {
     val hubNavController = rememberNavController()
     val currentRoute = rememberCurrentHubRoute(hubNavController)
 
@@ -37,7 +38,7 @@ fun Hub() {
                 Search()
             }
             composable<HubRoute.Profile> {
-                Profile()
+                Profile(coreNavController = coreNavController)
             }
         }
     }

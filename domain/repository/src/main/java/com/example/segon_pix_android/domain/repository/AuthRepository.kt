@@ -7,6 +7,8 @@ import com.example.segon_pix_android.domain.model.User
 interface AuthRepository {
     fun getToken(): String?
 
+    suspend fun getSelfId(): Long
+
     suspend fun getAuthenticatedUserClaims(token: String): MyCustomClaims?
 
     suspend fun isTokenVerified(): Boolean
@@ -26,6 +28,8 @@ interface AuthRepository {
         email: String,
         password: String,
     ): AuthResult
+
+    suspend fun logout()
 
     suspend fun getUserById(userId: Long): User?
 

@@ -85,7 +85,7 @@ object NetworkModule {
         val contentType = "application/json".toMediaType()
         return Retrofit
             .Builder()
-            .baseUrl("https://b320-163-143-50-138.ngrok-free.app/") // ★ あなたのバックエンドのURLに合わせて変更
+            .baseUrl("https://5c0e-163-143-50-138.ngrok-free.app/") // ★ あなたのバックエンドのURLに合わせて変更
             .client(okHttpClient)
             .addConverterFactory(json.asConverterFactory(contentType))
             .build()
@@ -105,6 +105,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideTokenProvider(tokenManager: AuthTokenManager): () -> String? =
+        {
+            tokenManager.getToken()
+        }
+
+    @Provides
+    @Singleton
     fun provideAuthRepositoryImpl(
         authApiService: AuthApiService,
         userApiService: UserApiService,
@@ -114,9 +121,10 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideUserRepositoryImpl(
+        authRepository: AuthRepository,
         userApiService: UserApiService,
         tokenProvider: () -> String?,
-    ): UserRepository = UserRepositoryImpl(userApiService, tokenProvider)
+    ): UserRepository = UserRepositoryImpl(authRepository, userApiService, tokenProvider)
 
     @Provides
     @Singleton

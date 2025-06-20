@@ -3,16 +3,23 @@ package com.example.segon_pix_android.data.repoitory_impl
 import com.example.dto.toDomainUser
 import com.example.segon_pix_android.data.remote.service.UserApiService
 import com.example.segon_pix_android.domain.model.User
+import com.example.segon_pix_android.domain.repository.AuthRepository
 import com.example.segon_pix_android.domain.repository.UserRepository
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
 class UserRepositoryImpl(
+    private val authRepository: AuthRepository,
     private val userApiService: UserApiService,
     private val tokenProvider: () -> String?,
 ) : UserRepository {
     private fun getAuthToken(): String = tokenProvider()?.let { "Bearer $it" } ?: throw IllegalStateException("Auth token is not available")
+
+    override suspend fun getSelf(): User {
+        val response = userApiService.getUserPublic(authRepository.getSelfId())
+        return response.toDomainUser()
+    }
 
     override suspend fun updateUser(
         userId: Long,

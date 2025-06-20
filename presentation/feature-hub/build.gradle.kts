@@ -70,4 +70,7 @@ dependencies {
     // coil
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
+
+    // datetime
+    implementation(libs.kotlinx.datetime)
 }

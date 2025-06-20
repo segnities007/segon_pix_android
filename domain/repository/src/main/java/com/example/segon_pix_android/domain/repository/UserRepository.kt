@@ -3,6 +3,8 @@ package com.example.segon_pix_android.domain.repository
 import com.example.segon_pix_android.domain.model.User
 
 interface UserRepository {
+    suspend fun getSelf(): User
+
     suspend fun updateUser(
         userId: Long,
         name: String? = null,
