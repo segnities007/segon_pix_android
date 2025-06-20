@@ -36,6 +36,7 @@ android {
 dependencies {
 
     implementation(project(":presentation:model"))
+    implementation(project(":presentation:component"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
