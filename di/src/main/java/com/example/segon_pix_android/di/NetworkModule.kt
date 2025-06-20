@@ -85,7 +85,7 @@ object NetworkModule {
         val contentType = "application/json".toMediaType()
         return Retrofit
             .Builder()
-            .baseUrl("https://6df7-163-143-50-138.ngrok-free.app/") // ★ あなたのバックエンドのURLに合わせて変更
+            .baseUrl("https://b320-163-143-50-138.ngrok-free.app/") // ★ あなたのバックエンドのURLに合わせて変更
             .client(okHttpClient)
             .addConverterFactory(json.asConverterFactory(contentType))
             .build()

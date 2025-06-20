@@ -2,7 +2,7 @@ package com.example.segon_pix_android.feature_auth
 
 import androidx.compose.foundation.pager.PagerState
 import androidx.navigation.NavHostController
-import com.example.segon_pix_android.presentation.model.FeatureRoute
+import com.example.segon_pix_android.presentation.model.CoreRoute
 
 sealed interface AuthIntent {
     data class GoToNextPage(
@@ -11,7 +11,7 @@ sealed interface AuthIntent {
     ) : AuthIntent
 
     data class GoToHub(
-        val featureRoute: FeatureRoute,
+        val coreRoute: CoreRoute,
         val coreNavHostController: NavHostController,
     ) : AuthIntent
 
