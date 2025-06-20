@@ -12,7 +12,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/data" />
-            <option value="$PROJECT_DIR$/data/dto" />
             <option value="$PROJECT_DIR$/data/local" />
             <option value="$PROJECT_DIR$/data/remote" />
             <option value="$PROJECT_DIR$/data/repoitory-impl" />
@@ -24,9 +23,7 @@
             <option value="$PROJECT_DIR$/presentation" />
             <option value="$PROJECT_DIR$/presentation/component" />
             <option value="$PROJECT_DIR$/presentation/feature-auth" />
-            <option value="$PROJECT_DIR$/presentation/feature-core" />
-            <option value="$PROJECT_DIR$/presentation/feature-hub" />
-            <option value="$PROJECT_DIR$/presentation/model" />
+            <option value="$PROJECT_DIR$/presentation/feature-home" />
           </set>
         </option>
       </GradleProjectSettings>

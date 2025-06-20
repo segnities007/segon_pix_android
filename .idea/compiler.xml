@@ -2,8 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="Segon_pix_android.data.service" target="21" />
-      <module name="Segon_pix_android.presentation.hub" target="21" />
+      <module name="Segon_pix_android.di" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.segon_pix_android.domain.model"
+    namespace = "com.example.segon_pix_android.feature_home"
     compileSdk = 35
 
     defaultConfig {
