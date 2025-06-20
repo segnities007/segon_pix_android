@@ -12,26 +12,24 @@ import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.compose.AsyncImage
+import com.example.segon_pix_android.component.card.PostCard
 import com.example.segon_pix_android.component.divider.LabelDivider
 import com.example.segon_pix_android.domain.model.Image
 
 @Composable
-fun Home(modifier: Modifier = Modifier) {
-    val homeViewModel: HomeViewModel = hiltViewModel()
-
-    LaunchedEffect(Unit) {
-        homeViewModel.onIntent(HomeIntent.Init)
-    }
-
+fun Home(
+    modifier: Modifier = Modifier,
+    isFabShow: Boolean,
+    fabAction: () -> Unit,
+    onHomeIntent: (HomeIntent) -> Unit = {},
+) {
     Column(
         modifier =
             modifier
@@ -41,6 +39,13 @@ fun Home(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         NewImages()
+    }
+
+    if (isFabShow) {
+        PostCard(
+            onPost = { uri, title, hashtag -> onHomeIntent(HomeIntent.PostImage(uri, title, hashtag)) },
+            onDismiss = fabAction,
+        )
     }
 }
 
@@ -74,5 +79,9 @@ private fun NewImages(images: List<Image> = listOf()) {
 @Composable
 @Preview(showBackground = true)
 private fun HomePreview() {
-    Home()
+    Home(
+        isFabShow = false,
+        fabAction = {},
+        onHomeIntent = {},
+    )
 }

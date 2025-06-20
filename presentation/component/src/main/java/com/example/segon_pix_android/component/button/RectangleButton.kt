@@ -1,6 +1,5 @@
 package com.example.segon_pix_android.component.button
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -22,7 +21,7 @@ fun RectangleButton(
     enabled: Boolean = true,
 ) {
     Button(
-        modifier = modifier.padding(PADDING.dp),
+        modifier = modifier,
         shape = RoundedCornerShape(ROUNDED_CORNER_SHAPE.dp),
         onClick = onClick,
         enabled = enabled,

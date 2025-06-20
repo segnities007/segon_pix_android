@@ -10,16 +10,24 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.segon_pix_android.component.button.Fab
 import com.example.segon_pix_android.presentation.feature_hub.home.Home
+import com.example.segon_pix_android.presentation.feature_hub.home.HomeIntent
+import com.example.segon_pix_android.presentation.feature_hub.home.HomeViewModel
 import com.example.segon_pix_android.presentation.feature_hub.profile.Profile
 import com.example.segon_pix_android.presentation.feature_hub.search.Search
 import com.example.segon_pix_android.presentation.model.HubRoute
@@ -27,12 +35,24 @@ import com.example.segon_pix_android.presentation.model.HubRoute
 @Composable
 fun Hub(coreNavController: NavHostController) {
     val hubNavController = rememberNavController()
+    val homeViewModel: HomeViewModel = hiltViewModel()
     val currentRoute = rememberCurrentHubRoute(hubNavController)
+    var isFabShow by remember { mutableStateOf(false) }
+    val fabAction = { isFabShow = !isFabShow }
 
-    HubUi(currentRoute, hubNavController) {
+    LaunchedEffect(Unit) {
+        homeViewModel.onIntent(HomeIntent.Init)
+    }
+
+    HubUi(
+        currentRoute = currentRoute,
+        fabAction = fabAction,
+        hubNavController = hubNavController,
+        isFabShow = isFabShow,
+    ) {
         NavHost(navController = hubNavController, startDestination = HubRoute.Home) {
             composable<HubRoute.Home> {
-                Home()
+                Home(isFabShow = isFabShow, fabAction = fabAction, onHomeIntent = homeViewModel::onIntent)
             }
             composable<HubRoute.Search> {
                 Search()
@@ -47,11 +67,19 @@ fun Hub(coreNavController: NavHostController) {
 @Composable
 private fun HubUi(
     currentRoute: HubRoute,
+    isFabShow: Boolean,
     hubNavController: NavController,
+    fabAction: () -> Unit,
     content: @Composable () -> Unit,
 ) {
     Scaffold(
         bottomBar = { BottomBar(currentRoute, hubNavController) },
+        floatingActionButton = {
+            when (currentRoute) {
+                is HubRoute.Home -> if (!isFabShow) Fab(fabAction)
+                else -> { /*nothing*/ }
+            }
+        },
     ) { innerPadding ->
         Box(
             Modifier

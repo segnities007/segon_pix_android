@@ -1,5 +1,6 @@
 package com.example.segon_pix_android.domain.repository
 
+import android.net.Uri
 import com.example.segon_pix_android.domain.model.Comment
 import com.example.segon_pix_android.domain.model.Image
 import com.example.segon_pix_android.domain.model.PostedImage
@@ -7,9 +8,9 @@ import com.example.segon_pix_android.domain.model.PostedImage
 interface ImageRepository {
     suspend fun addImage(
         userId: Long,
-        imageBytes: ByteArray,
+        uri: Uri,
         hashtags: List<String>,
-    ): Long?
+    ): Boolean
 
     suspend fun deleteImage(
         imageId: Long,

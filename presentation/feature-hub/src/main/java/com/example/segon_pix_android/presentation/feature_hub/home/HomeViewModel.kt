@@ -21,16 +21,24 @@ class HomeViewModel
 
         fun onIntent(intent: HomeIntent) {
             when (intent) {
-                is HomeIntent.Init -> init(intent)
-                is HomeIntent.GetMoreNewImage -> {
-                    // TODO
-                }
+                is HomeIntent.Init -> init()
+                is HomeIntent.GetMoreNewImage -> getMoreNewImage()
+
+                is HomeIntent.PostImage -> postImage(intent)
             }
         }
 
-        private fun init(intent: HomeIntent.Init) {
+        private fun init() {
             viewModelScope.launch(Dispatchers.IO) {
                 _state.value = state.value.copy(newImages = imageRepository.getRecentImages())
             }
+        }
+
+        private fun getMoreNewImage() {
+            //TODO
+        }
+
+        private fun postImage(intent: HomeIntent.PostImage) {
+            //TODO
         }
     }

@@ -22,7 +22,7 @@ interface ImageApiService {
         @Query("userID") userId: Long,
         @Part file: MultipartBody.Part,
         @Part("Hashtags") hashtags: List<String>,
-    ): Long
+    ): Response<Long>
 
     @DELETE("segon_pix_auth/delete/image")
     suspend fun deleteImage(

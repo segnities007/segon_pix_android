@@ -64,12 +64,12 @@ private fun Title() {
 @Composable
 private fun SignButton(
     pagerState: PagerState,
-    onLoginIntent: (AuthIntent) -> Unit
+    onLoginIntent: (AuthIntent) -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(2.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-    ){
+    ) {
         Button(
             modifier = Modifier.fillMaxWidth(),
             onClick = { onLoginIntent(AuthIntent.GoToNextPage(2, pagerState)) },
@@ -83,7 +83,6 @@ private fun SignButton(
             Text(text = "Sign in")
         }
     }
-
 }
 
 @Composable

@@ -5,5 +5,5 @@ import com.example.segon_pix_android.domain.model.User
 
 @Immutable
 data class ProfileState(
-    val self: User = User()
+    val self: User = User(),
 )

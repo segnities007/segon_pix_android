@@ -1,5 +1,6 @@
 package com.example.segon_pix_android.di
 
+import android.content.Context
 import com.example.segon_pix_android.data.remote.AuthTokenManager
 import com.example.segon_pix_android.data.remote.service.AuthApiService
 import com.example.segon_pix_android.data.remote.service.ImageApiService
@@ -14,6 +15,7 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.datetime.Instant
 import kotlinx.serialization.json.Json
@@ -120,16 +122,24 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideUserRepositoryImpl(
+    fun provideUserRepository(
         authRepository: AuthRepository,
         userApiService: UserApiService,
         tokenProvider: () -> String?,
-    ): UserRepository = UserRepositoryImpl(authRepository, userApiService, tokenProvider)
+        @ApplicationContext context: Context,
+    ): UserRepository =
+        UserRepositoryImpl(
+            authRepository,
+            userApiService,
+            tokenProvider,
+            context,
+        )
 
     @Provides
     @Singleton
     fun provideImageRepositoryImpl(
         imageApiService: ImageApiService,
         tokenManager: AuthTokenManager,
-    ): ImageRepository = ImageRepositoryImpl(imageApiService, tokenManager)
+        @ApplicationContext context: Context,
+    ): ImageRepository = ImageRepositoryImpl(imageApiService, tokenManager, context)
 }
