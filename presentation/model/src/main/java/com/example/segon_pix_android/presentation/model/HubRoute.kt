@@ -11,8 +11,5 @@ sealed interface HubRoute {
     data object Search : HubRoute
 
     @Serializable
-    data object Chat : HubRoute
-
-    @Serializable
     data object Profile : HubRoute
 }

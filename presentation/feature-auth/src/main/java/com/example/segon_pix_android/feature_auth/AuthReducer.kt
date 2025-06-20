@@ -6,7 +6,7 @@ fun authReducer(
 ): AuthState =
     when (intent) {
         is AuthIntent.GoToHub -> {
-            intent.coreNavHostController.navigate(intent.featureRoute)
+            intent.coreNavHostController.navigate(intent.coreRoute)
             state
         }
         is AuthIntent.SetEmailAndPassword -> state.copy(email = intent.email, password = intent.password)

@@ -3,7 +3,7 @@ package com.example.feature_core
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.segon_pix_android.domain.repository.AuthRepository
-import com.example.segon_pix_android.presentation.model.FeatureRoute
+import com.example.segon_pix_android.presentation.model.CoreRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -26,8 +26,8 @@ class CoreViewModel
                 val result = authRepository.isTokenVerified()
                 viewModelScope.launch(Dispatchers.Main) {
                     when (result) {
-                        true -> intent.coreNavHostController.navigate(FeatureRoute.Hub)
-                        false -> intent.coreNavHostController.navigate(FeatureRoute.Auth)
+                        true -> intent.coreNavHostController.navigate(CoreRoute.Hub)
+                        false -> intent.coreNavHostController.navigate(CoreRoute.Auth)
                     }
                 }
             }

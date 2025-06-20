@@ -3,7 +3,7 @@ package com.example.segon_pix_android.feature_auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.segon_pix_android.domain.repository.AuthRepository
-import com.example.segon_pix_android.presentation.model.FeatureRoute
+import com.example.segon_pix_android.presentation.model.CoreRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -61,7 +61,7 @@ class AuthViewModel
                 val authResult = authRepository.login(intent.email, intent.password)
                 if (authResult.isSuccess) {
                     viewModelScope.launch(Dispatchers.Main) {
-                        intent.coreNavHostController.navigate(FeatureRoute.Hub)
+                        intent.coreNavHostController.navigate(CoreRoute.Hub)
                     }
                 }
             }
@@ -85,7 +85,7 @@ class AuthViewModel
                     )
                 if (authResult.isSuccess) {
                     viewModelScope.launch(Dispatchers.Main) {
-                        intent.coreNavHostController.navigate(FeatureRoute.Hub)
+                        intent.coreNavHostController.navigate(CoreRoute.Hub)
                     }
                 }
             }

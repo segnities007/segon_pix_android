@@ -3,13 +3,13 @@ package com.example.segon_pix_android.presentation.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed interface FeatureRoute {
+sealed interface CoreRoute {
     @Serializable
-    data object Auth : FeatureRoute
+    data object Auth : CoreRoute
 
     @Serializable
-    data object Hub : FeatureRoute
+    data object Hub : CoreRoute
 
     @Serializable
-    data object Splash : FeatureRoute
+    data object Splash : CoreRoute
 }
