@@ -15,9 +15,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LabelDivider(label: String) {
+fun LabelDivider(
+    modifier: Modifier = Modifier,
+    label: String
+) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         ){
         HorizontalDivider(modifier = Modifier.weight(2f))
@@ -30,6 +33,6 @@ fun LabelDivider(label: String) {
 @Preview(showBackground = true)
 private fun LabelDividerPreview(){
     Box(modifier = Modifier.fillMaxSize()){
-        LabelDivider("aaaaaaaaa")
+        LabelDivider(label = "aaaaaaaaa")
     }
 }
