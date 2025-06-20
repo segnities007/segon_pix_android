@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.compose.AsyncImage
-import com.example.segon_pix_android.component.LabelDivider
+import com.example.segon_pix_android.component.divider.LabelDivider
 import com.example.segon_pix_android.domain.model.Image
 
 @Composable

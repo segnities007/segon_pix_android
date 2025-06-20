@@ -1,6 +1,5 @@
-package com.example.segon_pix_android.component
+package com.example.segon_pix_android.component.divider
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,12 +16,12 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun LabelDivider(
     modifier: Modifier = Modifier,
-    label: String
+    label: String,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
-        ){
+    ) {
         HorizontalDivider(modifier = Modifier.weight(2f))
         Text(modifier = Modifier.padding(8.dp), text = label)
         HorizontalDivider(modifier = Modifier.weight(10f))
@@ -31,8 +30,8 @@ fun LabelDivider(
 
 @Composable
 @Preview(showBackground = true)
-private fun LabelDividerPreview(){
-    Box(modifier = Modifier.fillMaxSize()){
+private fun LabelDividerPreview() {
+    Box(modifier = Modifier.fillMaxSize()) {
         LabelDivider(label = "aaaaaaaaa")
     }
 }
