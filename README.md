@@ -6,6 +6,7 @@
 
 ## 説明
 これは[Segon_pix](https://github.com/onion0904/segon_pix)を用いたAndroidアプリです。
+昔Flutterで作成していたのですが、Jetpack Composeを使用して新しく作成し直しました。
 
 ## 見た目
 
