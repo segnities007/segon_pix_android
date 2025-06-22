@@ -58,6 +58,7 @@ fun SignInPage(
 private fun Title() {
     Text(
         text = "Sign in",
+        lineHeight = 60.sp,
         fontSize = 48.sp,
     )
 }
