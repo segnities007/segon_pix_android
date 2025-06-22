@@ -162,33 +162,26 @@ class ImageRepositoryImpl
                 false
             }
 
-        override suspend fun searchImagesByHashtag(hashtag: String): List<Image> =
+        override suspend fun getImages(
+            hashtag: String,
+            like: Boolean,
+            search: Boolean,
+            imageId: Long,
+            likeNum: Int,
+        ): List<Image> =
             try {
-                val response = imageApiService.searchImagesByHashtag(hashtag)
-                response.images
+                val response =
+                    imageApiService.getImages(
+                        hashtag = hashtag,
+                        search = search,
+                        like = like,
+                        imageId = imageId,
+                        likeNum = likeNum,
+                    )
+                if (response.isSuccessful) response.body() ?: emptyList() else emptyList()
             } catch (e: Exception) {
                 e.printStackTrace()
                 Log.e("ImageRepository", "Error searching images by hashtag: ${e.message}")
-                emptyList()
-            }
-
-        override suspend fun getPopularImages(): List<Image> =
-            try {
-                val response = imageApiService.getPopularImages()
-                response.images
-            } catch (e: Exception) {
-                e.printStackTrace()
-                Log.e("ImageRepository", "Error getting popular images: ${e.message}")
-                emptyList()
-            }
-
-        override suspend fun getRecentImages(): List<Image> =
-            try {
-                val response = imageApiService.getRecentImages()
-                response.images
-            } catch (e: Exception) {
-                e.printStackTrace()
-                Log.e("ImageRepository", "Error getting recent images: ${e.message}")
                 emptyList()
             }
 

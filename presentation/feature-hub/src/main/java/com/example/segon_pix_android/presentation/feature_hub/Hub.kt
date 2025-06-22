@@ -18,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -36,6 +37,7 @@ import com.example.segon_pix_android.presentation.model.HubRoute
 fun Hub(coreNavController: NavHostController) {
     val hubNavController = rememberNavController()
     val homeViewModel: HomeViewModel = hiltViewModel()
+    val homeState = homeViewModel.state.collectAsStateWithLifecycle()
     val currentRoute = rememberCurrentHubRoute(hubNavController)
     var isFabShow by remember { mutableStateOf(false) }
     val fabAction = { isFabShow = !isFabShow }
@@ -52,7 +54,13 @@ fun Hub(coreNavController: NavHostController) {
     ) {
         NavHost(navController = hubNavController, startDestination = HubRoute.Home) {
             composable<HubRoute.Home> {
-                Home(isFabShow = isFabShow, fabAction = fabAction, onHomeIntent = homeViewModel::onIntent)
+                Home(
+                    isFabShow = isFabShow,
+                    fabAction = fabAction,
+                    onHomeIntent = homeViewModel::onIntent,
+                    images = homeState.value.newImages,
+                    isFetchCompleted = homeState.value.isFetchCompleted,
+                )
             }
             composable<HubRoute.Search> {
                 Search()

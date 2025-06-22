@@ -45,11 +45,13 @@ interface ImageRepository {
         commentId: Long,
     ): Boolean
 
-    suspend fun searchImagesByHashtag(hashtag: String): List<Image>
-
-    suspend fun getPopularImages(): List<Image>
-
-    suspend fun getRecentImages(): List<Image>
+    suspend fun getImages(
+        hashtag: String = "",
+        like: Boolean = false,
+        search: Boolean = true,
+        imageId: Long = -1,
+        likeNum: Int = -1,
+    ): List<Image>
 
     suspend fun getImageDetail(imageId: Long): PostedImage?
 }

@@ -1,7 +1,7 @@
 package com.example.segon_pix_android.data.remote.service
 
-import com.example.dto.ImageListResponse
 import com.example.segon_pix_android.domain.model.Comment
+import com.example.segon_pix_android.domain.model.Image
 import com.example.segon_pix_android.domain.model.PostedImage
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -22,7 +22,7 @@ interface ImageApiService {
         @Query("userID") userId: Long,
         @Part file: MultipartBody.Part,
         @Part("Hashtags") hashtags: List<String>,
-    ): Response<Long>
+    ): Response<Unit>
 
     @DELETE("segon_pix_auth/delete/image")
     suspend fun deleteImage(
@@ -69,16 +69,14 @@ interface ImageApiService {
         @Query("commentID") commentId: Long,
     ): Response<Unit>
 
-    @GET("segon_pix/get/list/search")
-    suspend fun searchImagesByHashtag(
+    @GET("segon_pix/get/list")
+    suspend fun getImages(
+        @Query("Search") search: Boolean,
+        @Query("Like") like: Boolean,
         @Query("Hashtag") hashtag: String,
-    ): ImageListResponse
-
-    @GET("segon_pix/get/list/like")
-    suspend fun getPopularImages(): ImageListResponse
-
-    @GET("segon_pix/get/list/recent")
-    suspend fun getRecentImages(): ImageListResponse
+        @Query("current") imageId: Long,
+        @Query("like_num") likeNum: Int,
+    ): Response<List<Image>>
 
     @GET("segon_pix/get/image_detail")
     suspend fun getImageDetail(

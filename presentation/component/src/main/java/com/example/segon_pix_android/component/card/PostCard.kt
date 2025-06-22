@@ -38,7 +38,7 @@ import com.example.segon_pix_android.component.button.RectangleButton
 @Composable
 fun PostCard(
     modifier: Modifier = Modifier,
-    onPost: (uri: Uri, title: String, hashtag: String) -> Unit,
+    onPost: (uri: Uri, title: String, hashtag: String, onDismiss: () -> Unit) -> Unit,
     onDismiss: () -> Unit,
 ) {
     var uri by remember { mutableStateOf<Uri?>(null) }
@@ -143,7 +143,7 @@ private fun Buttons(
     uri: Uri?,
     title: String,
     hashtag: String,
-    onPost: (Uri, String, String) -> Unit,
+    onPost: (uri: Uri, title: String, hashtag: String, onDismiss: () -> Unit) -> Unit,
     onDismiss: () -> Unit,
 ) {
     Row(
@@ -159,7 +159,7 @@ private fun Buttons(
         RectangleButton(
             modifier = Modifier.weight(1f),
             text = "Post",
-            onClick = { if (uri != null) onPost(uri, title, hashtag) },
+            onClick = { if (uri != null) onPost(uri, title, hashtag, onDismiss) },
         )
     }
 }
@@ -168,7 +168,7 @@ private fun Buttons(
 @Preview(showBackground = true)
 private fun PostCardPreview() {
     PostCard(
-        onPost = { _, _, _ -> },
+        onPost = { _, _, _, _ -> },
         onDismiss = {},
     )
 }

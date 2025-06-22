@@ -21,11 +21,14 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.example.segon_pix_android.component.card.PostCard
 import com.example.segon_pix_android.component.divider.LabelDivider
+import com.example.segon_pix_android.component.indicator.CircleIndicator
 import com.example.segon_pix_android.domain.model.Image
 
 @Composable
 fun Home(
     modifier: Modifier = Modifier,
+    images: List<Image>,
+    isFetchCompleted: Boolean,
     isFabShow: Boolean,
     fabAction: () -> Unit,
     onHomeIntent: (HomeIntent) -> Unit = {},
@@ -38,40 +41,49 @@ fun Home(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        NewImages()
+        LabelDivider(modifier = Modifier.padding(horizontal = 8.dp), label = "New")
+        NewImages(images, isFetchCompleted, onHomeIntent)
     }
 
     if (isFabShow) {
         PostCard(
-            onPost = { uri, title, hashtag -> onHomeIntent(HomeIntent.PostImage(uri, title, hashtag)) },
-            onDismiss = fabAction,
+            onPost = { uri, title, hashtag, onDismiss -> onHomeIntent(HomeIntent.PostImage(uri, title, hashtag, onDismiss)) },
+            onDismiss = { fabAction() },
         )
     }
 }
 
 @Composable
-private fun NewImages(images: List<Image> = listOf()) {
+private fun NewImages(
+    images: List<Image>,
+    isFetchCompleted: Boolean,
+    onHomeIntent: (HomeIntent) -> Unit,
+) {
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
     ) {
-        item(span = StaggeredGridItemSpan.FullLine) {
-            LabelDivider(modifier = Modifier.padding(horizontal = 8.dp), label = "New")
-        }
         items(
             items = images,
-        ) { id ->
-            AsyncImage( // TODO Change AsyncImage to AsyncImageCard
+            key = { it.id },
+        ) { image ->
+            AsyncImage(
                 modifier =
                     Modifier
                         .padding(4.dp)
                         .clip(RoundedCornerShape(8.dp)),
-                model = "https://avatars.githubusercontent.com/u/134184436?v=4",
-                contentDescription = "Image $id",
+                model = image.url,
+                contentDescription = "Image ${image.id}",
                 contentScale = ContentScale.Crop,
             )
         }
         item(span = StaggeredGridItemSpan.FullLine) {
-            // TODO create loading indicator and implement logic.
+            if(images.isNotEmpty()){
+                CircleIndicator(isFetchCompleted) {
+                    onHomeIntent(HomeIntent.GetMoreNewImage(
+                        last = images.last().id,
+                    ))
+                }
+            }
         }
     }
 }
@@ -83,5 +95,7 @@ private fun HomePreview() {
         isFabShow = false,
         fabAction = {},
         onHomeIntent = {},
+        images = listOf(),
+        isFetchCompleted = true,
     )
 }

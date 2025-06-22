@@ -27,6 +27,8 @@ import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+private const val BASE_URL = "https://e213-220-144-227-224.ngrok-free.app/"
+
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
@@ -87,7 +89,7 @@ object NetworkModule {
         val contentType = "application/json".toMediaType()
         return Retrofit
             .Builder()
-            .baseUrl("https://5c0e-163-143-50-138.ngrok-free.app/") // ★ あなたのバックエンドのURLに合わせて変更
+            .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(json.asConverterFactory(contentType))
             .build()
