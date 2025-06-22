@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Image(
-    @SerialName("id")
-    val id: Long,
-    @SerialName("url")
-    val url: String,
+    @SerialName("ID")
+    val id: Long = 0,
+    @SerialName("URL")
+    val url: String = "https://avatars.githubusercontent.com/u/134184436?v=4",
 )

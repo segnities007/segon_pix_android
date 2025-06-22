@@ -25,7 +25,7 @@ fun Core() {
             Auth(coreNavHostController = navController)
         }
         composable<CoreRoute.Hub> {
-            Hub()
+            Hub(coreNavController = navController)
         }
     }
 }

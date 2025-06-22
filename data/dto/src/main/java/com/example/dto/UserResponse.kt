@@ -8,12 +8,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserResponse(
-    @SerialName("id") val id: Long,
-    @SerialName("name") val name: String,
-    @SerialName("description") val description: String = "",
-    @SerialName("icon") val icon: String = "",
-    @SerialName("header_image") val headerImage: String = "",
-    @SerialName("birthday") val birthday: Int,
+    @SerialName("ID") val id: Long,
+    @SerialName("Name") val name: String,
+    @SerialName("Description") val description: String = "",
+    @SerialName("Icon") val icon: String = "",
+    @SerialName("Header_image") val headerImage: String = "",
+    @SerialName("Birthday") val birthday: Int,
     @SerialName("posted_images") val postedImages: List<PostedImage> = emptyList(),
     @SerialName("liked_images") val likedImages: List<PostedImage> = emptyList(),
     @SerialName("follows") val follows: List<User> = emptyList(),

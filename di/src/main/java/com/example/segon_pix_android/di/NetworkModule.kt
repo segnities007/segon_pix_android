@@ -1,5 +1,6 @@
 package com.example.segon_pix_android.di
 
+import android.content.Context
 import com.example.segon_pix_android.data.remote.AuthTokenManager
 import com.example.segon_pix_android.data.remote.service.AuthApiService
 import com.example.segon_pix_android.data.remote.service.ImageApiService
@@ -14,6 +15,7 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.datetime.Instant
 import kotlinx.serialization.json.Json
@@ -24,6 +26,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+
+private const val BASE_URL = "https://e213-220-144-227-224.ngrok-free.app/"
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -85,7 +89,7 @@ object NetworkModule {
         val contentType = "application/json".toMediaType()
         return Retrofit
             .Builder()
-            .baseUrl("https://b320-163-143-50-138.ngrok-free.app/") // ★ あなたのバックエンドのURLに合わせて変更
+            .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(json.asConverterFactory(contentType))
             .build()
@@ -105,6 +109,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideTokenProvider(tokenManager: AuthTokenManager): () -> String? =
+        {
+            tokenManager.getToken()
+        }
+
+    @Provides
+    @Singleton
     fun provideAuthRepositoryImpl(
         authApiService: AuthApiService,
         userApiService: UserApiService,
@@ -113,15 +124,24 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideUserRepositoryImpl(
+    fun provideUserRepository(
+        authRepository: AuthRepository,
         userApiService: UserApiService,
         tokenProvider: () -> String?,
-    ): UserRepository = UserRepositoryImpl(userApiService, tokenProvider)
+        @ApplicationContext context: Context,
+    ): UserRepository =
+        UserRepositoryImpl(
+            authRepository,
+            userApiService,
+            tokenProvider,
+            context,
+        )
 
     @Provides
     @Singleton
     fun provideImageRepositoryImpl(
         imageApiService: ImageApiService,
         tokenManager: AuthTokenManager,
-    ): ImageRepository = ImageRepositoryImpl(imageApiService, tokenManager)
+        @ApplicationContext context: Context,
+    ): ImageRepository = ImageRepositoryImpl(imageApiService, tokenManager, context)
 }

@@ -32,6 +32,11 @@ class AuthRepositoryImpl
             return !isTokenExpired(claims)
         }
 
+        override suspend fun getSelfId(): Long {
+            val claims = getAuthenticatedUserClaims(getToken()!!)
+            return claims!!.userId
+        }
+
         override suspend fun sendEmailVerificationCode(email: String): Boolean =
             try {
                 val response = authApiService.sendEmailVerificationCode(email)
@@ -85,6 +90,10 @@ class AuthRepositoryImpl
                 e.printStackTrace()
                 AuthResult(errorMessage = e.message, isSuccess = false)
             }
+
+        override suspend fun logout() {
+            tokenManager.clearToken()
+        }
 
         override suspend fun getAuthenticatedUserClaims(token: String): MyCustomClaims? {
             val decodedJwt: DecodedJWT? =

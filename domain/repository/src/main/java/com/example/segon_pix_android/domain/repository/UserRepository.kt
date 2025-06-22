@@ -1,8 +1,11 @@
 package com.example.segon_pix_android.domain.repository
 
+import android.net.Uri
 import com.example.segon_pix_android.domain.model.User
 
 interface UserRepository {
+    suspend fun getSelf(): User
+
     suspend fun updateUser(
         userId: Long,
         name: String? = null,
@@ -13,12 +16,12 @@ interface UserRepository {
 
     suspend fun updateUserIcon(
         userId: Long,
-        imageBytes: ByteArray,
+        uri: Uri,
     ): User?
 
     suspend fun updateUserHeader(
         userId: Long,
-        imageBytes: ByteArray,
+        uri: Uri,
     ): User?
 
     suspend fun deleteUser(userId: Long): Boolean

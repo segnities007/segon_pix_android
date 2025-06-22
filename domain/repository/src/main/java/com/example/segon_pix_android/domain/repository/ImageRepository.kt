@@ -1,5 +1,6 @@
 package com.example.segon_pix_android.domain.repository
 
+import android.net.Uri
 import com.example.segon_pix_android.domain.model.Comment
 import com.example.segon_pix_android.domain.model.Image
 import com.example.segon_pix_android.domain.model.PostedImage
@@ -7,9 +8,9 @@ import com.example.segon_pix_android.domain.model.PostedImage
 interface ImageRepository {
     suspend fun addImage(
         userId: Long,
-        imageBytes: ByteArray,
+        uri: Uri,
         hashtags: List<String>,
-    ): Long?
+    ): Boolean
 
     suspend fun deleteImage(
         imageId: Long,
@@ -44,11 +45,13 @@ interface ImageRepository {
         commentId: Long,
     ): Boolean
 
-    suspend fun searchImagesByHashtag(hashtag: String): List<Image>
-
-    suspend fun getPopularImages(): List<Image>
-
-    suspend fun getRecentImages(): List<Image>
+    suspend fun getImages(
+        hashtag: String = "",
+        like: Boolean = false,
+        search: Boolean = true,
+        imageId: Long = -1,
+        likeNum: Int = -1,
+    ): List<Image>
 
     suspend fun getImageDetail(imageId: Long): PostedImage?
 }
