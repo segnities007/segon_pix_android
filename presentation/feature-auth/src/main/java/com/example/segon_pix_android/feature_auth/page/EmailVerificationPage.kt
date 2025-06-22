@@ -60,6 +60,7 @@ private fun Title() {
     Text(
         text = "Input your email \n and \n new password",
         fontSize = 36.sp,
+        lineHeight = 60.sp,
         textAlign = TextAlign.Center,
     )
 }

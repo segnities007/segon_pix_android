@@ -64,6 +64,7 @@ private fun Title() {
     Text(
         text = "Create your account",
         fontSize = 48.sp,
+        lineHeight = 60.sp,
         textAlign = TextAlign.Center,
     )
 }

@@ -54,14 +54,9 @@ private fun AuthUi(
 ) {
     Scaffold(
         bottomBar = {
-            TextButton(
-                modifier = Modifier,
-                onClick = { onAuthIntent(AuthIntent.BackToStart(pagerState)) },
-            ) {
-                Text(
-                    text = "Back to Start",
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
+            when(pagerState.currentPage){
+                1 -> {}
+                else -> BackButton(pagerState, onAuthIntent)
             }
         },
     ) { innerPadding ->
@@ -74,6 +69,22 @@ private fun AuthUi(
         ) {
             content()
         }
+    }
+}
+
+@Composable
+private fun BackButton(
+    pagerState: PagerState,
+    onAuthIntent: (AuthIntent) -> Unit,
+){
+    TextButton(
+        modifier = Modifier,
+        onClick = { onAuthIntent(AuthIntent.BackToStart(pagerState)) },
+    ) {
+        Text(
+            text = "Back to Start",
+            color = MaterialTheme.colorScheme.onBackground,
+        )
     }
 }
 

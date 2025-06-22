@@ -10,12 +10,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,6 +52,7 @@ fun StartPage(
 @Composable
 private fun OnionIcon() {
     AsyncImage(
+        modifier = Modifier.clip(RoundedCornerShape(16.dp)),
         model = "https://avatars.githubusercontent.com/u/134184436?v=4",
         contentDescription = "onion0904",
     )
@@ -56,8 +61,10 @@ private fun OnionIcon() {
 @Composable
 private fun Title() {
     Text(
-        text = "aaaaa",
+        text = "Welcome to\nSegon Pix",
         fontSize = 48.sp,
+        lineHeight = 60.sp,
+        textAlign = TextAlign.Center,
     )
 }
 
